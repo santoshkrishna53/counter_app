@@ -1,0 +1,88 @@
+<div class="container-fluid" style="max-width: 1000px;margin: auto;padding-top: 20px;">
+  <!-- Jumbotron for title -->
+  <div class="jumbotron jumbotron-fluid">
+    <h1 class="display-4">Counters</h1>
+  </div>
+
+  <!-- Table to display counters -->
+  <table class="table table-striped table-hover" style="padding-top: 20px;">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">Counter Name</th>
+        <th scope="col">Count</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- Loop through counters using *ngFor -->
+      <ng-container *ngFor="let counter of storageService.counters.getValue();let i = index">
+        <tr>
+
+          <!-- Counter Name Column -->
+          <th scope="row">
+            <h3>{{counter.counter_name}}</h3>
+          </th>
+
+          <!-- Count Column with input fields -->
+          <td style="width: 300px;">
+            <h3>
+              <div class="input-group" style="max-width: 200px;">
+                
+                <!-- Remove button -->
+                <span class="input-group-text">
+                  <button class="material-symbols-outlined pointer input_buttons"
+                    (click)="decrement(counter)">remove</button>
+                </span>
+                
+                <!-- Input field for count -->
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                  [(ngModel)]="counters[i].count">
+                
+                  <!-- Add button -->
+                <span class="input-group-text">
+                  <button class="material-symbols-outlined input_buttons" pointer
+                    (click)="increment(counter)">add</button>
+                </span>
+              </div>
+            </h3>
+          </td>
+          
+          <!-- Action Column with delete button -->
+          <td>
+            <h3>
+              <button class="material-symbols-outlined input_buttons" style="color: red;"
+                (click)="remove_counter(i)">delete</button>
+            </h3>
+          </td>
+        </tr>
+      
+      <!-- Show a message when there are no counters -->
+      </ng-container>
+      <ng-container *ngIf="storageService.counters.getValue().length == 0">
+        <th scope="row" colspan="3">
+          <h3> No Counters</h3>
+        </th>
+
+      </ng-container>
+
+    </tbody>
+  </table>
+  
+  <!-- Container for adding a new counter -->
+  <div class="container-fluid border rounded">
+
+    <form style="margin-top: 20px;margin-bottom: 20px;" [formGroup]="new_counter_form">
+      <span style="margin-bottom: 20px;"><strong>Add Counter</strong></span>
+      <div class="mb-3">
+        <label for="CounterName" class="form-label">Counter Name</label>
+        <input type="text" class="form-control" id="CounterName" formControlName="counter_name">
+      </div>
+      <div class="mb-3">
+        <label for="CounterValue" class="form-label">Counter Value</label>
+        <input type="number" class="form-control" id="CounterValue" formControlName="counter_value">
+      </div>
+      <button type="submit" class="btn btn-primary" (click)="new_counter()">Add Counter</button>
+    </form>
+  </div>
+</div>

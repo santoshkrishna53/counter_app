@@ -1,0 +1,10 @@
+h3 { 
+    margin: 0 !important;
+}
+.pointer {
+    cursor: pointer;
+}
+.input_buttons {
+    border: 0;
+    background-color: transparent;
+}
